@@ -24,8 +24,10 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        seatRepository.deleteAll();
-        eventRepository.deleteAll();
+        if (eventRepository.count() > 0) {
+            System.out.println("Data already exists. Skipping seeding.");
+            return;
+        }
         
         // --- Seed Events ---
         List<Event> events = new ArrayList<>();
